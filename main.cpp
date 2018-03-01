@@ -14,7 +14,6 @@ int RECT_LENGTH = 150;
 
 int main(int argc, char* argv[]){
 	
-	
 	SDL_Window *window;     
 	SDL_Renderer * renderer; 
 
@@ -31,45 +30,59 @@ int main(int argc, char* argv[]){
 
 	rect.w = RECT_LENGTH; 
 	rect.h = RECT_LENGTH; 
-	rect.x = 200; 
-	rect.y = 200;
-
-	int num1 = 1, num2 = 1;  
+	rect.x = 525; 
+	rect.y = 325;
 
 	bool isRunning = true; 
 	SDL_Event event; 
 
+	int num1 = 2, num2 = 2; 
+
 	while (isRunning) {
+
+		while (SDL_PollEvent(&event)) {
+
+			if (event.type == SDL_QUIT) {
+				isRunning = false;
+			}
+
+			if (event.type == SDL_KEYDOWN) {
+				switch (event.key.keysym.sym) {
+				case SDLK_LEFT:
+					rect.x -= 10;
+					break;
+				case SDLK_RIGHT:
+					rect.x += 10;
+					break;
+				case SDLK_UP:
+					rect.y -= 10;
+					break; 
+				case SDLK_DOWN:
+					rect.y += 10;
+					break; 
+				}
+			}
+		}
+		if (rect.x < 0) {
+			rect.x = 0; 
+		}
+		else if (rect.x > 1050) {
+			rect.x = 1050; 
+		}
+		else if (rect.y < 0) {
+			rect.y = 0; 
+		} 
+		else if (rect.y > 650) {
+			rect.y = 650; 
+		}
 
 		SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
 		SDL_RenderClear(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 203, 32, 39, 0);
 		SDL_RenderFillRect(renderer, &rect);
-		
-		if (rect.x <= 0) {
-			num1 = 1;
-		}
-		else if (rect.x >= 1050) {
-			num1 = -1;
-		}
-		else if (rect.y <= 0) {
-			num2 = 1;
-		}
-		else if (rect.y >= 650) {
-			num2 = -1;
-		}
-		rect.x += num1;
-		rect.y += num2;
-		
-		SDL_RenderPresent(renderer); 
-		SDL_Delay(1); 
 
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
-				isRunning = false; 
-			}
-		}
+		SDL_RenderPresent(renderer); 
 	}
 
 	return 0; 
