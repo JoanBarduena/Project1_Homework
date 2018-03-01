@@ -19,12 +19,10 @@ int main(int argc, char* argv[]){
 
 	SDL_Init(SDL_INIT_VIDEO);            
 
-	window = SDL_CreateWindow("MyGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+	window = SDL_CreateWindow("MyGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
 	//Renderer
 	renderer = SDL_CreateRenderer(window, -1, 0); 
-	SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0); 
-	SDL_RenderClear(renderer);
 
 	//Square 
 
@@ -61,7 +59,7 @@ int main(int argc, char* argv[]){
 		rect.y += num2;
 		
 		SDL_RenderPresent(renderer); 
-		SDL_Delay(2); 
+		SDL_Delay(1); 
 
 	}
 
