@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
+#include <cstdbool>
 using namespace std;
 #include "SDL/include/SDL.h"
 
@@ -35,7 +36,10 @@ int main(int argc, char* argv[]){
 
 	int num1 = 1, num2 = 1;  
 
-	while (1) {
+	bool isRunning = true; 
+	SDL_Event event; 
+
+	while (isRunning) {
 
 		SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
 		SDL_RenderClear(renderer);
@@ -61,6 +65,11 @@ int main(int argc, char* argv[]){
 		SDL_RenderPresent(renderer); 
 		SDL_Delay(1); 
 
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT) {
+				isRunning = false; 
+			}
+		}
 	}
 
 	return 0; 
