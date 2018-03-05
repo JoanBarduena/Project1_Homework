@@ -33,6 +33,14 @@ int main(int argc, char* argv[]){
 	rect.x = 525; 
 	rect.y = 325;
 
+	//Bullet 
+
+	SDL_Rect bullet; 
+
+	bullet.w = 60; 
+	bullet.h = 30;
+
+
 	bool isRunning = true; 
 	SDL_Event event; 
 
@@ -49,16 +57,20 @@ int main(int argc, char* argv[]){
 			if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
 				case SDLK_LEFT:
-					rect.x -= 10;
+					rect.x -= 30;
 					break;
 				case SDLK_RIGHT:
-					rect.x += 10;
+					rect.x += 30;
 					break;
 				case SDLK_UP:
-					rect.y -= 10;
+					rect.y -= 30;
 					break; 
 				case SDLK_DOWN:
-					rect.y += 10;
+					rect.y += 30;
+					break; 
+				case SDLK_SPACE:		
+					bullet.x = rect.x + 150; 
+					bullet.y = rect.y + (rect.h /2 - bullet.h / 2) ; 
 					break; 
 				}
 			}
@@ -75,12 +87,20 @@ int main(int argc, char* argv[]){
 		else if (rect.y > 650) {
 			rect.y = 650; 
 		}
+		
+		if (bullet.y < 1200) {
+			bullet.x += 5;
+			SDL_Delay(3);
+		}
 
 		SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
 		SDL_RenderClear(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 203, 32, 39, 0);
 		SDL_RenderFillRect(renderer, &rect);
+
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
+		SDL_RenderFillRect(renderer, &bullet);
 
 		SDL_RenderPresent(renderer); 
 	}
