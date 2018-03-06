@@ -1,12 +1,10 @@
-#include <iostream>
-#include <cstdlib>
-#include <cstdio>
-#include <cstdbool>
 using namespace std;
 #include "SDL/include/SDL.h"
+#include "SDL_Image/include/SDL_image.h"
 
 #pragma comment (lib, "SDL/libx86/SDL2.lib")
 #pragma comment (lib, "SDL/libx86/SDL2main.lib")
+#pragma comment (lib, "SDL_Image/libx86/SDL2_image.lib")
 
 int WINDOW_WIDTH = 1200;
 int WINDOW_HEIGHT = 800;
@@ -107,8 +105,8 @@ int main(int argc, char* argv[]){
 		SDL_RenderPresent(renderer); 
 	}
 
-	SDL_DestroyRenderer;
-	SDL_DestroyWindow; 
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window); 
 	SDL_Quit();
 
 	return 0; 
