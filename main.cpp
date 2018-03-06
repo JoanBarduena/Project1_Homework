@@ -67,8 +67,7 @@ int main(int argc, char* argv[]){
 					break; 
 				case SDLK_DOWN:
 					rect.y += 30;
-					break; 
-				case SDLK_DOWN && SDLK_RIGHT:
+					break;
 					rect.y += 30; 
 					rect.x += 30; 
 					break; 
@@ -76,6 +75,18 @@ int main(int argc, char* argv[]){
 					bullet.x = rect.x + 100; 
 					bullet.y = rect.y + (rect.h /2 - bullet.h / 2) ; 
 					break; 
+				}
+			}
+			if (event.type == SDL_KEYUP) {
+				switch (event.key.keysym.sym) {
+				case SDLK_LEFT: 
+					rect.x += 0; 
+				case SDLK_RIGHT: 
+					rect.x -= 0; 
+				case SDLK_UP: 
+					rect.y += 0; 
+				case SDLK_DOWN: 
+					rect.y += 0; 
 				}
 			}
 		}
@@ -107,6 +118,10 @@ int main(int argc, char* argv[]){
 
 		SDL_RenderPresent(renderer); 
 	}
+
+	SDL_DestroyRenderer;
+	SDL_DestroyWindow; 
+	SDL_Quit();
 
 	return 0; 
 }
