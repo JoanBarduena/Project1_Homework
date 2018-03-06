@@ -77,18 +77,6 @@ int main(int argc, char* argv[]){
 					break; 
 				}
 			}
-			if (event.type == SDL_KEYUP) {
-				switch (event.key.keysym.sym) {
-				case SDLK_LEFT: 
-					rect.x += 0; 
-				case SDLK_RIGHT: 
-					rect.x -= 0; 
-				case SDLK_UP: 
-					rect.y += 0; 
-				case SDLK_DOWN: 
-					rect.y += 0; 
-				}
-			}
 		}
 		if (rect.x < 0) {
 			rect.x = 0; 
