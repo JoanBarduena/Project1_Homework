@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
 
 	SDL_Rect bullet; 
 
-	bullet.w = 60; 
+	bullet.w = 50; 
 	bullet.h = 30;
 
 
@@ -67,6 +67,10 @@ int main(int argc, char* argv[]){
 					break; 
 				case SDLK_DOWN:
 					rect.y += 30;
+					break; 
+				case SDLK_DOWN && SDLK_RIGHT:
+					rect.y += 30; 
+					rect.x += 30; 
 					break; 
 				case SDLK_SPACE:		
 					bullet.x = rect.x + 150; 
