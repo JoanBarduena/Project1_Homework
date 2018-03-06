@@ -10,7 +10,7 @@ using namespace std;
 
 int WINDOW_WIDTH = 1200;
 int WINDOW_HEIGHT = 800;
-int RECT_LENGTH = 150;
+int RECT_LENGTH = 100;
 
 int main(int argc, char* argv[]){
 	
@@ -37,8 +37,8 @@ int main(int argc, char* argv[]){
 
 	SDL_Rect bullet; 
 
-	bullet.w = 50; 
-	bullet.h = 30;
+	bullet.w = 20; 
+	bullet.h = 10;
 
 
 	bool isRunning = true; 
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]){
 					rect.x += 30; 
 					break; 
 				case SDLK_SPACE:		
-					bullet.x = rect.x + 150; 
+					bullet.x = rect.x + 100; 
 					bullet.y = rect.y + (rect.h /2 - bullet.h / 2) ; 
 					break; 
 				}
@@ -82,19 +82,18 @@ int main(int argc, char* argv[]){
 		if (rect.x < 0) {
 			rect.x = 0; 
 		}
-		else if (rect.x > 1050) {
-			rect.x = 1050; 
+		else if (rect.x > 1100) {
+			rect.x = 1100; 
 		}
 		else if (rect.y < 0) {
 			rect.y = 0; 
 		} 
-		else if (rect.y > 650) {
-			rect.y = 650; 
+		else if (rect.y > 700) {
+			rect.y = 700; 
 		}
 		
 		if (bullet.y < 1200) {
-			bullet.x += 5;
-			SDL_Delay(3);
+			bullet.x += 1; 
 		}
 
 		SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
