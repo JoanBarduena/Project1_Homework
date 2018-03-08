@@ -1,4 +1,3 @@
-using namespace std;
 #include "SDL/include/SDL.h"
 #include "SDL_Image/include/SDL_image.h"
 
@@ -15,7 +14,8 @@ int main(int argc, char* argv[]){
 	SDL_Window *window;     
 	SDL_Renderer * renderer; 
 	SDL_Surface * surface; 
-	SDL_Texture * texture; 
+	SDL_Texture * spaceship; 
+	SDL_Texture * background; 
 
 	SDL_Init(SDL_INIT_VIDEO);            
 	
@@ -34,20 +34,25 @@ int main(int argc, char* argv[]){
 
 	//Bullet 
 	SDL_Rect bullet;
-
 	bullet.w = 20;
 	bullet.h = 10;
 
 	//PNG
 	SDL_Rect destination;
-	destination.x = rect.x;
-	destination.y = rect.y;
 	destination.w = rect.w;
 	destination.h = rect.h;
+	destination.x = rect.x;
+	destination.y = rect.y;
 
+	//GalaxyBackground
+	surface = IMG_Load("galaxy.jpg");
+	background = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
+	//Rocket
 	surface = IMG_Load("RocketSDL.png");
-	texture = SDL_CreateTextureFromSurface(renderer, surface);
-	//SDL_FreeSurface(surface);
+	spaceship = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
 
 	bool isRunning = true; 
 	bool up = false; 
@@ -107,15 +112,19 @@ int main(int argc, char* argv[]){
 		}
 		if (up == true) {
 			rect.y -= 1;
+			destination.y = rect.y; 
 		}
 		if (down == true) {
 			rect.y += 1;
+			destination.y = rect.y;
 		}
 		if (right == true) {
 			rect.x += 1;
+			destination.x = rect.x;
 		}
 		if (left == true) {
 			rect.x -= 1;
+			destination.x = rect.x; 
 		}
 		if (space == true) {
 			bullet.x = rect.x + 100;
@@ -139,18 +148,19 @@ int main(int argc, char* argv[]){
 			bullet.x += 1; 
 		}
 
-		SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
+		//SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
 		SDL_RenderClear(renderer);
 
-		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-		//SDL_RenderFillRect(renderer, &rect);
+		SDL_RenderCopy(renderer, background, NULL, NULL);
+
+	//	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	//	SDL_RenderFillRect(renderer, &rect);
 
 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
 		SDL_RenderFillRect(renderer, &bullet);
 
-		SDL_RenderCopy(renderer, texture, &rect, &destination);
+		SDL_RenderCopy(renderer, spaceship, NULL, &destination);
 		SDL_RenderPresent(renderer);
-		
 	}
 
 	SDL_DestroyRenderer(renderer);
