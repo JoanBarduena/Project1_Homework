@@ -40,19 +40,23 @@ int main(int argc, char* argv[]){
 
 	//PNG
 	SDL_Rect destination;
-	destination.x = 525;
-	destination.y = 325;
-	destination.w = RECT_LENGTH;
-	destination.h = RECT_LENGTH;
+	destination.x = rect.x;
+	destination.y = rect.y;
+	destination.w = rect.w;
+	destination.h = rect.h;
 
-	surface = IMG_Load("textures/RocketSDL.png");
+	surface = IMG_Load("RocketSDL.png");
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
+	//SDL_FreeSurface(surface);
 
 	bool isRunning = true; 
-	SDL_Event event; 
+	bool up = false; 
+	bool down = false; 
+	bool left = false; 
+	bool right = false;
+	bool space = false; 
 
-	int num1 = 2, num2 = 2; 
+	SDL_Event event; 
 
 	while (isRunning) {
 
@@ -62,30 +66,62 @@ int main(int argc, char* argv[]){
 				isRunning = false;
 			}
 
-			if (event.type == SDL_KEYDOWN) {
+			else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
 				case SDLK_LEFT:
-					rect.x -= 30;
+					left = true;
 					break;
 				case SDLK_RIGHT:
-					rect.x += 30;
+					right = true;
 					break;
 				case SDLK_UP:
-					rect.y -= 30;
-					break; 
-				case SDLK_DOWN:
-					rect.y += 30;
+					up = true;
 					break;
-					rect.y += 30; 
-					rect.x += 30; 
-					break; 
-				case SDLK_SPACE:		
-					bullet.x = rect.x + 100; 
-					bullet.y = rect.y + (rect.h /2 - bullet.h / 2) ; 
-					break; 
+				case SDLK_DOWN:
+					down = true;
+					break;
+				case SDLK_SPACE:
+					space = true; 
+					break;
+				}
+			}
+			else if (event.type == SDL_KEYUP) {
+				switch (event.key.keysym.sym) {
+				case SDLK_LEFT:
+					left = false; 
+					break;
+				case SDLK_RIGHT:
+					right = false;
+					break;
+				case SDLK_UP:
+					up = false;
+					break;
+				case SDLK_DOWN:
+					down = false;
+					break;
+				case SDLK_SPACE:
+					space = false; 
+					break;
 				}
 			}
 		}
+		if (up == true) {
+			rect.y -= 1;
+		}
+		if (down == true) {
+			rect.y += 1;
+		}
+		if (right == true) {
+			rect.x += 1;
+		}
+		if (left == true) {
+			rect.x -= 1;
+		}
+		if (space == true) {
+			bullet.x = rect.x + 100;
+			bullet.y = rect.y + (rect.h / 2 - bullet.h / 2);
+		}
+
 		if (rect.x < 0) {
 			rect.x = 0; 
 		}
@@ -106,11 +142,15 @@ int main(int argc, char* argv[]){
 		SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
 		SDL_RenderClear(renderer);
 
-		//SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
-		//SDL_RenderFillRect(renderer, &bullet);
+		//SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		//SDL_RenderFillRect(renderer, &rect);
 
-		SDL_RenderCopy(renderer, texture, &rect, &destination); 
-		SDL_RenderPresent(renderer); 
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
+		SDL_RenderFillRect(renderer, &bullet);
+
+		SDL_RenderCopy(renderer, texture, &rect, &destination);
+		SDL_RenderPresent(renderer);
+		
 	}
 
 	SDL_DestroyRenderer(renderer);
