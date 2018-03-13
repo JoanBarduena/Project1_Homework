@@ -11,8 +11,8 @@ int RECT_LENGTH = 100;
 
 int main(int argc, char* argv[]){
 	
-	SDL_Init(SDL_INIT_VIDEO);            
-	
+	SDL_Init(SDL_INIT_VIDEO);
+
 	SDL_Window* window = SDL_CreateWindow("MyGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 
 	//Renderer
@@ -69,7 +69,6 @@ int main(int argc, char* argv[]){
 			if (event.type == SDL_QUIT) {
 				isRunning = false;
 			}
-
 			else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
 				case SDLK_LEFT:
@@ -145,8 +144,8 @@ int main(int argc, char* argv[]){
 			rect.y = 700; 
 		}
 		if (bullet.y < 1200) {
-			bullet.x += 1;
-			bulletpng.x += 1;
+			//bullet.x += 3;
+			bulletpng.x += 3;
 		}
 
 		//SDL_SetRenderDrawColor(renderer, 16, 62, 166, 0);
