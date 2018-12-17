@@ -1,3 +1,3 @@
 # mygame
 just homework
-testing how branches are working. 
+testing branch creation and website. 
